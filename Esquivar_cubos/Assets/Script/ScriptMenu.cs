@@ -26,4 +26,14 @@ public class ScriptMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Creditos");
     }
+
+    public void btnInfo()
+    {
+        SceneManager.LoadScene("Info");
+    }
+
+    public void btnMenu()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
+    }
 }

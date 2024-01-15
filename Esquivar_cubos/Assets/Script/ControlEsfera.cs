@@ -73,7 +73,7 @@ public class ControlEsfera : MonoBehaviour
 
     public void ganarVida()
     {
-        if(vidas <= 5)
+        if(vidas < 5)
         {
             vidas += 1;
             cambiarColorEsfera();

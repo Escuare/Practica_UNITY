@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0e47864e8871d42946500aa0b49863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ralentizacion: 0.4
+  ralentizacion: 0.9
 --- !u!65 &1848848565993068785
 BoxCollider:
   m_ObjectHideFlags: 0

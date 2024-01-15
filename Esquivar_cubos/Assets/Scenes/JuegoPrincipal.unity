@@ -857,7 +857,8 @@ MonoBehaviour:
   ratioRepeticion: 2
   VidaPrefab: {fileID: 7521304993580709256, guid: b80318a92f6f8bf428caff3375aa0d95, type: 3}
   PuntosDoblesPrefab: {fileID: 6315124268373164264, guid: f056b66a389861f439e00da586fcfd54, type: 3}
-  ExplosionPrefab: {fileID: 0}
+  tiempoRestante: 10
+  ExplosionPrefab: {fileID: 7013205230486466580, guid: 8a39073ff60085c49b7ef86ec1505411, type: 3}
   puntos: 0
   puntosDoblesBool: 0
   txtPuntos: {fileID: 343641132}
@@ -902,7 +903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1922871492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,8 +933,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294877951
-  m_fontColor: {r: 1, g: 0.6367924, b: 0.9974463, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1238,14 +1239,13 @@ GameObject:
   - component: {fileID: 1987804552}
   - component: {fileID: 1987804554}
   - component: {fileID: 1987804553}
-  - component: {fileID: 1987804555}
   m_Layer: 0
   m_Name: PuntosDoblesOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1987804552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1399,27 +1399,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &1987804555
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987804551}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 128858076cbbee4408992dfe33de8dca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7296806196064529482
 PrefabInstance:
   m_ObjectHideFlags: 0
