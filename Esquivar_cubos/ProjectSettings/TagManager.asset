@@ -7,6 +7,7 @@ TagManager:
   - Esfera
   - Cubo
   - Vida
+  - Cubo2
   layers:
   - Default
   - TransparentFX

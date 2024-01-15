@@ -852,6 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cubo: {fileID: 4716205771488524131, guid: 35e62e137aa9136438da0977a29e4a4c, type: 3}
+  CuboPositivo: {fileID: 4716205771488524131, guid: e5f8193481c08714595fb63efa5dc509, type: 3}
   tiempoSpawn: 2
   ratioRepeticion: 2
   Vida: {fileID: 7521304993580709256, guid: b80318a92f6f8bf428caff3375aa0d95, type: 3}
@@ -1056,6 +1057,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: vidas
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae44484bdb340784c8498d4abad325a4, type: 2}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 00f5037365fe5ac4da6d22feb65bfd20, type: 2}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1fb1619511056144853c6c52e59f31b, type: 2}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b3e89bbd11b97c45a40a056e7ff0243, type: 2}
+    - target: {fileID: 305248742258303063, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
+      propertyPath: nuevoMaterial.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: a7b9da352e419384e88b056d804271db, type: 2}
     - target: {fileID: 3321086014123740758, guid: d37c494c8b2286147a8092f85f49c91e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

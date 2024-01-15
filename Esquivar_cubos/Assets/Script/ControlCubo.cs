@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControlCubo : MonoBehaviour
 {
     [Header("Puntuación")]
-    private float puntosPorCubo = 10;
+    public float puntosPorCubo = 10;
 
 
     // Start is called before the first frame update

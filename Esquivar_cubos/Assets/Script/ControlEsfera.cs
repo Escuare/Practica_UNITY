@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,16 @@ public class ControlEsfera : MonoBehaviour
 {
     [Header("Movimiento")]
     public float movimientoHorizontal;
+    public float movimientoVertical;
     public float velocidad = 10f;
     private float limiteX = 10f;
+    private float limiteY = 4f;
 
     [Header("Vida")]
-    public float vidas = 3;
+    public int vidas = 3;
+
+    [Header("Material")]
+    public Material[] nuevoMaterial;
 
     void Start()
     {
@@ -24,12 +30,18 @@ public class ControlEsfera : MonoBehaviour
         //MOVIMIENTO//
         movimientoHorizontal = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * movimientoHorizontal * velocidad * Time.deltaTime);
+        movimientoVertical = Input.GetAxis("Vertical");
+        transform.Translate(Vector3.up * movimientoVertical * velocidad * Time.deltaTime);
 
         //LÍMITE//
         if(transform.position.x > limiteX) 
             transform.position = new Vector3(limiteX, transform.position.y, transform.position.z);
         if (transform.position.x < -limiteX)
             transform.position = new Vector3(-limiteX, transform.position.y, transform.position.z);
+        if(transform.position.y > limiteY)
+            transform.position = new Vector3(transform.position.x, limiteY, transform.position.z);
+        if (transform.position.y < -limiteY)
+            transform.position = new Vector3(transform.position.x, -limiteY, transform.position.z);
     }
 
     public void perderVida()
@@ -37,6 +49,13 @@ public class ControlEsfera : MonoBehaviour
         vidas -= 1;
         if (vidas > 0)
         {
+            if(vidas == 2)
+                velocidad = 6f;
+            if(vidas == 1)
+                velocidad = 4f;
+
+            cambiarColorEsfera();
+
             GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarVidas(vidas);
         }
         else
@@ -49,26 +68,47 @@ public class ControlEsfera : MonoBehaviour
 
     public void ganarVida()
     {
-        if(vidas >= 5)
+        if(vidas <= 5)
         {
             vidas += 1;
+            cambiarColorEsfera();
+
+            if (vidas == 2)
+                velocidad = 6f;
+            if (vidas >= 3)
+                velocidad = 10f;
+
             GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarVidas(vidas);
         }
     }
 
+    void cambiarColorEsfera()
+    {
+        Renderer rend = GetComponent<Renderer>();
+        rend.material = nuevoMaterial[vidas-1];
+    }
+
     //COLISIONES//
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
         //CHOQUE CON CUBO//
-        if (collision.gameObject.CompareTag("Cubo"))
+        if (other.gameObject.CompareTag("Cubo"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             perderVida();
         }
 
-        if (collision.gameObject.CompareTag("Vida"))
+        if (other.gameObject.CompareTag("Cubo2"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
+            GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarPuntos(30);
+            //SI CHOCA CON UN CUBO ROSA SUMA 30 PUNTOS
+        }
+
+        if (other.gameObject.CompareTag("Vida"))
+        {
+            Destroy(other.gameObject);
             ganarVida();
         }
     }
