@@ -8,6 +8,8 @@ TagManager:
   - Cubo
   - Vida
   - Cubo2
+  - PuntosDobles
+  - Explosion
   layers:
   - Default
   - TransparentFX

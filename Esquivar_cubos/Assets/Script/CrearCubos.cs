@@ -8,21 +8,32 @@ public class CrearCubos : MonoBehaviour
     [Header("Cubos")]
     public GameObject Cubo;
     public GameObject CuboPositivo;
-    private float porcentajeCuboPositivo = 100f;
+    private float porcentajeCuboPositivo = 30f;
     public float tiempoSpawn = 2f;
     public float ratioRepeticion = 2f;
     private float[] tamanyos = { 0.4f, 0.6f, 1f, 1.2f, 1.4f, 2f };
 
     [Header("Objetos")]
-    public GameObject Vida;
-    private float porcentajeVida = 50f; //50% DE QUE SALGA UNA VIDA CADA 5 SEGUNDOS
+    public GameObject VidaPrefab;
+    private float porcentajeVida = 50f; 
+
+    public GameObject PuntosDoblesPrefab;
+    private float porcentajePuntosDobles = 50f;
+    public float tiempoRestante = 11f;
+
+    public GameObject ExplosionPrefab;
+    private float porcentajeExplosion = 30f;
 
     [Header("Puntuación")]
     public float puntos;
+    public bool puntosDoblesBool = false;
 
     [Header("Textos")]
     public TextMeshPro txtPuntos;
     public TextMeshPro txtVidas;
+    public TextMeshPro txtPuntosDobles;
+    public TextMeshPro txtPuntosDoblesSegundos;
+
 
 
     // Start is called before the first frame update
@@ -31,10 +42,18 @@ public class CrearCubos : MonoBehaviour
         //CREAR CUBOS//
         InvokeRepeating("spawnCubos", tiempoSpawn, ratioRepeticion);
 
-        //CREAR VIDAS//
-        StartCoroutine(spawnObjetos(Vida, porcentajeVida, 5f)); //CADA 5 SEGUNDOS PUEDE APARECER UNA VIDA, 50% POSIBILIDAD
+        //CREAR CUBOS ROSAS//
         GameObject cuboPositivoRandom = setCubo(CuboPositivo);
-        StartCoroutine(spawnObjetos(cuboPositivoRandom, porcentajeCuboPositivo, 1f)); //CADA 8 SEGUNDOS PUEDE APARECER UN CUBO POSITIVO, 30% POSIBILIDAD
+        StartCoroutine(spawnObjetos(cuboPositivoRandom, porcentajeCuboPositivo, 4f)); //CADA 4 SEGUNDOS PUEDE APARECER UN CUBO POSITIVO, 30% POSIBILIDAD
+
+        //CREAR VIDAS//
+        StartCoroutine(spawnObjetos(VidaPrefab, porcentajeVida, 6f)); //CADA 6 SEGUNDOS PUEDE APARECER UNA VIDA, 50% POSIBILIDAD
+
+        //CREAR PUNTOS DOBLES//
+        StartCoroutine(spawnObjetos(PuntosDoblesPrefab, porcentajePuntosDobles, 5f)); //CADA 5 SEGUNDOS PUEDE APARECER UN PUNTOS DOBLES, 50% POSIBILIDAD
+
+        //CREAR PUNTOS DOBLES//
+        StartCoroutine(spawnObjetos(ExplosionPrefab, porcentajeExplosion, 8f)); //CADA 8 SEGUNDOS PUEDE APARECER UNA EXPLOSION, 30% POSIBILIDAD
 
         //TEXTOS//
         actualizarVidas(GameObject.Find("Esfera").GetComponent<ControlEsfera>().vidas);
@@ -44,7 +63,11 @@ public class CrearCubos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (puntosDoblesBool && tiempoRestante > 0)
+        {
+            tiempoRestante -= Time.deltaTime;
+            txtPuntosDoblesSegundos.text = Mathf.FloorToInt(tiempoRestante % 60).ToString();
+        }
     }
 
     private Vector3 generarPosicionSpawn() //PARA GENERAR UNA POSICION AL INSTANCIAR ALGUN OBJETO
@@ -84,7 +107,7 @@ public class CrearCubos : MonoBehaviour
         while (true)
         {
             float numRandom = Random.Range(0f, 100f);
-            bool exito = numRandom <= porcentajeVida;   //SI EL NUM RANDOM ES MENOR AL PORCENTAJE DE VIDA, APARECE UNA.
+            bool exito = numRandom <= porcentaje;   //SI EL NUM RANDOM ES MENOR AL PORCENTAJE DE VIDA, APARECE UNA.
             if(exito)
                 Instantiate(objetoInstanciar, generarPosicionSpawn(), objetoInstanciar.transform.rotation);
             yield return new WaitForSeconds(tiempo);
@@ -100,7 +123,10 @@ public class CrearCubos : MonoBehaviour
 
     public void actualizarPuntos(float puntosGanados)
     {
-        puntos += puntosGanados;
+        if (puntosDoblesBool)
+            puntos += (puntosGanados * 2);
+        else
+            puntos += puntosGanados;
         txtPuntos.text = puntos.ToString();
         //VELOCIDAD DE LOS CUBOS
         if(puntos%50 == 0 && tiempoSpawn > 0.4f) //CADA 50 PUNTOS IRÁ MÁS RÁPIDO, SE HACE LA SEGUNDA CONDICIONAL PARA NO DA FALLOS Y TENER UNA VELOCIDAD MÁXIMA
@@ -110,6 +136,15 @@ public class CrearCubos : MonoBehaviour
             ratioRepeticion -= 0.2f;
             InvokeRepeating("spawnCubos", tiempoSpawn, ratioRepeticion);
         }
+    }
+
+    public void actualizarTxtPuntos(bool boolEnabled)
+    {
+        txtPuntosDobles.gameObject.SetActive(boolEnabled);
+        txtPuntosDoblesSegundos.gameObject.SetActive(boolEnabled);
+        puntosDoblesBool = boolEnabled;
+        if (!boolEnabled)
+            tiempoRestante = 11f;
     }
 
   

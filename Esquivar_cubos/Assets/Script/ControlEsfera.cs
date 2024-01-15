@@ -16,12 +16,16 @@ public class ControlEsfera : MonoBehaviour
     [Header("Vida")]
     public int vidas = 3;
 
+    [Header("Objetos")]
+    public bool puntosDoblesOn = false;
+    Coroutine tiempoPuntosDobles;
+    public bool ralentizarOn = false;
+
     [Header("Material")]
     public Material[] nuevoMaterial;
 
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -42,6 +46,7 @@ public class ControlEsfera : MonoBehaviour
             transform.position = new Vector3(transform.position.x, limiteY, transform.position.z);
         if (transform.position.y < -limiteY)
             transform.position = new Vector3(transform.position.x, -limiteY, transform.position.z);
+
     }
 
     public void perderVida()
@@ -88,6 +93,21 @@ public class ControlEsfera : MonoBehaviour
         rend.material = nuevoMaterial[vidas-1];
     }
 
+    IEnumerator puntosDoblesDuracion()
+    {
+
+        puntosDoblesOn = true;
+
+        GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarTxtPuntos(true);
+
+        yield return new WaitForSeconds(10f);
+
+        puntosDoblesOn = false;
+
+        GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarTxtPuntos(false);
+    }
+
+
     //COLISIONES//
 
     private void OnTriggerEnter(Collider other)
@@ -111,6 +131,38 @@ public class ControlEsfera : MonoBehaviour
             Destroy(other.gameObject);
             ganarVida();
         }
+
+        if (other.gameObject.CompareTag("PuntosDobles"))
+        {
+            Destroy(other.gameObject);
+            if (!puntosDoblesOn)
+                tiempoPuntosDobles = StartCoroutine(puntosDoblesDuracion());
+            else
+            {
+                //SI COGE UN PUNTOS DOBLES ESTANDO YA ACTIVADO, REINICIA LA COROUTINE
+                StopCoroutine(tiempoPuntosDobles);
+                puntosDoblesOn = false;
+                GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarTxtPuntos(false);
+                tiempoPuntosDobles = StartCoroutine(puntosDoblesDuracion());
+            }
+        }
+
+        if (other.gameObject.CompareTag("Explosion"))
+        {
+            Destroy (other.gameObject);
+            GameObject[] todosLosCubos = GameObject.FindGameObjectsWithTag("Cubo");
+            int puntosExtras = 0;
+            //DESTRUYE TODOS LOS CUBOS Y GANA 5 PUNTOS X CADA UNO DESTRUIDO.
+            foreach (GameObject cubo in todosLosCubos)
+            {
+                Destroy(cubo);
+                puntosExtras += 5;
+            }
+
+            GameObject.Find("DatosJuego").GetComponent<CrearCubos>().actualizarPuntos(puntosExtras);
+        }
+
+
     }
 
 
