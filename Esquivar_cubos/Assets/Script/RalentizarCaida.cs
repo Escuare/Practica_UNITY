@@ -23,7 +23,7 @@ public class RalentizarCaida : MonoBehaviour
 
     void Ralentizar()
     {
-        //SE CREA UNA FUERZA CONTRARIA
+        //SE CREA UNA FUERZA CONTRARIA PARA CREAR UNA RALENTIZACIÓN
         Vector3 fuerzaContraria = Vector3.up * ralentizacion;
         rb.AddForce(fuerzaContraria, ForceMode.Force);
     }

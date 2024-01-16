@@ -12,7 +12,7 @@ public class ScriptCreditos : MonoBehaviour
 
     private void Awake()
     {
-        puntoConseguidos = PlayerPrefs.GetFloat("PuntosFinales");  //RECOGE LO GUARDADO EN LA ESCENA DE JUEGO
+        puntoConseguidos = PlayerPrefs.GetFloat("PuntosFinales");  //RECOGE LOS PUNTOS CONSEGUIDOS EN LA ESCENA DE JUEGO
         txtPuntosConseguidos.text = puntoConseguidos.ToString();
     }
 

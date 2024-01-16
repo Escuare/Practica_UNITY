@@ -52,7 +52,7 @@ public class CrearCubos : MonoBehaviour
         //CREAR PUNTOS DOBLES//
         StartCoroutine(spawnObjetos(PuntosDoblesPrefab, porcentajePuntosDobles, 5f)); //CADA 5 SEGUNDOS PUEDE APARECER UN PUNTOS DOBLES, 50% POSIBILIDAD
 
-        //CREAR PUNTOS DOBLES//
+        //CREAR EXPLOSIÓN//
         StartCoroutine(spawnObjetos(ExplosionPrefab, porcentajeExplosion, 8f)); //CADA 8 SEGUNDOS PUEDE APARECER UNA EXPLOSION, 30% POSIBILIDAD
 
         //TEXTOS//
@@ -65,6 +65,7 @@ public class CrearCubos : MonoBehaviour
     {
         if (puntosDoblesBool && tiempoRestante > 0)
         {
+            //TEMPORIZADOR CUENTA ATRÁS
             tiempoRestante -= Time.deltaTime;
             txtPuntosDoblesSegundos.text = Mathf.FloorToInt(tiempoRestante % 60).ToString();
         }
@@ -129,7 +130,7 @@ public class CrearCubos : MonoBehaviour
             puntos += puntosGanados;
         txtPuntos.text = puntos.ToString();
         //VELOCIDAD DE LOS CUBOS
-        if(puntos%50 == 0 && tiempoSpawn > 0.4f) //CADA 50 PUNTOS IRÁ MÁS RÁPIDO, SE HACE LA SEGUNDA CONDICIONAL PARA NO DA FALLOS Y TENER UNA VELOCIDAD MÁXIMA
+        if(puntos%50 == 0 && tiempoSpawn > 0.2f) //CADA 50 PUNTOS IRÁ MÁS RÁPIDO, SE HACE LA SEGUNDA CONDICIONAL PARA NO DA FALLOS Y TENER UNA VELOCIDAD MÁXIMA
         {
             CancelInvoke("spawnCubos");
             tiempoSpawn -= 0.2f;
